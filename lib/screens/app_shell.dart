@@ -81,13 +81,13 @@ class _AppShellState extends State<AppShell> {
     final wide = isWide(context);
 
     return Scaffold(
-      backgroundColor: Ink.canvas,
+      backgroundColor: Skin.canvas,
       body: SafeArea(
         child: wide
             ? Row(
                 children: [
                   _rail(),
-                  const VerticalDivider(width: 1, color: Ink.line),
+                  const VerticalDivider(width: 1, color: Skin.line),
                   Expanded(child: _page()),
                 ],
               )
@@ -97,7 +97,7 @@ class _AppShellState extends State<AppShell> {
           ? null
           : DecoratedBox(
               decoration: const BoxDecoration(
-                border: Border(top: BorderSide(color: Ink.line)),
+                border: Border(top: BorderSide(color: Skin.line)),
               ),
               child: NavigationBar(
                 selectedIndex: _index,
@@ -120,21 +120,21 @@ class _AppShellState extends State<AppShell> {
       width: 88,
       child: Column(
         children: [
-          const SizedBox(height: Ink.s5),
+          const SizedBox(height: Skin.s5),
           // Wordmark: a single amber square, the only branding in the app.
           Container(
             width: 26,
             height: 26,
             decoration: BoxDecoration(
-              color: Ink.accent,
-              borderRadius: BorderRadius.circular(Ink.rSm),
+              color: Skin.accent,
+              borderRadius: BorderRadius.circular(Skin.rSm),
             ),
-            child: const Icon(Icons.circle, size: 9, color: Ink.onAccent),
+            child: const Icon(Icons.circle, size: 9, color: Skin.onAccent),
           ),
-          const SizedBox(height: Ink.s5),
+          const SizedBox(height: Skin.s5),
           Expanded(
             child: NavigationRail(
-              backgroundColor: Ink.canvas,
+              backgroundColor: Skin.canvas,
               selectedIndex: _index,
               onDestinationSelected: (i) => setState(() => _index = i),
               labelType: NavigationRailLabelType.all,
@@ -151,10 +151,10 @@ class _AppShellState extends State<AppShell> {
           AnimatedBuilder(
             animation: _gallery,
             builder: (context, _) => Padding(
-              padding: const EdgeInsets.only(bottom: Ink.s4),
+              padding: const EdgeInsets.only(bottom: Skin.s4),
               child: Text(
                 '${_gallery.length}',
-                style: const TextStyle(color: Ink.textFaint, fontSize: 12),
+                style: const TextStyle(color: Skin.textFaint, fontSize: 12),
               ),
             ),
           ),

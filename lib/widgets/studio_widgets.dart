@@ -13,7 +13,7 @@ class SectionLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: Ink.s2),
+      padding: const EdgeInsets.only(bottom: Skin.s2),
       child: Row(
         children: [
           Expanded(
@@ -33,7 +33,7 @@ class Panel extends StatelessWidget {
   const Panel({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(Ink.s4),
+    this.padding = const EdgeInsets.all(Skin.s4),
     this.color,
     this.borderColor,
   });
@@ -48,9 +48,9 @@ class Panel extends StatelessWidget {
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: color ?? Ink.surface,
-        borderRadius: BorderRadius.circular(Ink.rMd),
-        border: Border.all(color: borderColor ?? Ink.line),
+        color: color ?? Skin.surface,
+        borderRadius: BorderRadius.circular(Skin.rMd),
+        border: Border.all(color: borderColor ?? Skin.line),
       ),
       child: child,
     );
@@ -64,7 +64,7 @@ class NoticeBar extends StatelessWidget {
     required this.icon,
     required this.title,
     this.message,
-    this.tone = Ink.accent,
+    this.tone = Skin.accent,
     this.action,
     this.actionLabel,
   });
@@ -82,14 +82,14 @@ class NoticeBar extends StatelessWidget {
       color: tone.withValues(alpha: 0.07),
       borderColor: tone.withValues(alpha: 0.35),
       padding: const EdgeInsets.symmetric(
-        horizontal: Ink.s3,
-        vertical: Ink.s3,
+        horizontal: Skin.s3,
+        vertical: Skin.s3,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: 18, color: tone),
-          const SizedBox(width: Ink.s3),
+          const SizedBox(width: Skin.s3),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,18 +98,18 @@ class NoticeBar extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
-                      color: Ink.text,
+                      color: Skin.text,
                     )),
                 if (message != null) ...[
                   const SizedBox(height: 2),
                   Text(message!,
-                      style: const TextStyle(fontSize: 13, color: Ink.textDim)),
+                      style: const TextStyle(fontSize: 13, color: Skin.textDim)),
                 ],
               ],
             ),
           ),
           if (action != null && actionLabel != null) ...[
-            const SizedBox(width: Ink.s2),
+            const SizedBox(width: Skin.s2),
             TextButton(onPressed: action, child: Text(actionLabel!)),
           ],
         ],
@@ -135,11 +135,11 @@ class MetaRow extends StatelessWidget {
           SizedBox(
             width: 92,
             child: Text(label,
-                style: const TextStyle(fontSize: 12.5, color: Ink.textFaint)),
+                style: const TextStyle(fontSize: 12.5, color: Skin.textFaint)),
           ),
           Expanded(
             child: Text(value,
-                style: const TextStyle(fontSize: 12.5, color: Ink.text)),
+                style: const TextStyle(fontSize: 12.5, color: Skin.text)),
           ),
         ],
       ),
@@ -164,7 +164,7 @@ class EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(Ink.s5),
+        padding: const EdgeInsets.all(Skin.s5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -172,20 +172,20 @@ class EmptyState extends StatelessWidget {
               width: 52,
               height: 52,
               decoration: BoxDecoration(
-                color: Ink.raised,
-                borderRadius: BorderRadius.circular(Ink.rMd),
-                border: Border.all(color: Ink.line),
+                color: Skin.raised,
+                borderRadius: BorderRadius.circular(Skin.rMd),
+                border: Border.all(color: Skin.line),
               ),
-              child: Icon(icon, color: Ink.textFaint, size: 24),
+              child: Icon(icon, color: Skin.textFaint, size: 24),
             ),
-            const SizedBox(height: Ink.s4),
+            const SizedBox(height: Skin.s4),
             Text(title,
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: Ink.text,
+                  color: Skin.text,
                 )),
-            const SizedBox(height: Ink.s2),
+            const SizedBox(height: Skin.s2),
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 320),
               child: Text(
@@ -193,7 +193,7 @@ class EmptyState extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 13,
-                  color: Ink.textFaint,
+                  color: Skin.textFaint,
                   height: 1.45,
                 ),
               ),
@@ -220,9 +220,9 @@ class StageStrip extends StatelessWidget {
           borderRadius: BorderRadius.circular(2),
           child: const LinearProgressIndicator(minHeight: 3),
         ),
-        const SizedBox(height: Ink.s2),
+        const SizedBox(height: Skin.s2),
         Text(caption,
-            style: const TextStyle(fontSize: 12.5, color: Ink.textDim)),
+            style: const TextStyle(fontSize: 12.5, color: Skin.textDim)),
       ],
     );
   }

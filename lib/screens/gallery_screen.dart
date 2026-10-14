@@ -104,7 +104,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
         return Column(
           children: [
             _bar(items.length),
-            const Divider(height: 1, color: Ink.line),
+            const Divider(height: 1, color: Skin.line),
             Expanded(
               child: items.isEmpty
                   ? const EmptyState(
@@ -115,12 +115,12 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           'here until you close the app.',
                     )
                   : GridView.builder(
-                      padding: screenScrollPadding(context, Ink.s4),
+                      padding: screenScrollPadding(context, Skin.s4),
                       gridDelegate:
                           SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: _cols,
-                        crossAxisSpacing: Ink.s3,
-                        mainAxisSpacing: Ink.s3,
+                        crossAxisSpacing: Skin.s3,
+                        mainAxisSpacing: Skin.s3,
                       ),
                       itemCount: items.length,
                       itemBuilder: (context, i) => _tile(items[i]),
@@ -134,7 +134,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
   Widget _bar(int count) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(Ink.s5, Ink.s4, Ink.s4, Ink.s4),
+      padding: const EdgeInsets.fromLTRB(Skin.s5, Skin.s4, Skin.s4, Skin.s4),
       child: Row(
         children: [
           const Text('Gallery',
@@ -142,11 +142,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
                 letterSpacing: -0.5,
-                color: Ink.text,
+                color: Skin.text,
               )),
-          const SizedBox(width: Ink.s3),
+          const SizedBox(width: Skin.s3),
           Text('$count',
-              style: const TextStyle(fontSize: 14, color: Ink.textFaint)),
+              style: const TextStyle(fontSize: 14, color: Skin.textFaint)),
           const Spacer(),
           IconButton(
             tooltip: 'Fewer columns',
@@ -158,7 +158,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
             icon: const Icon(Icons.zoom_out, size: 19),
             onPressed: _cols >= 6 ? null : () => _setCols(_cols + 1),
           ),
-          const SizedBox(width: Ink.s2),
+          const SizedBox(width: Skin.s2),
           OutlinedButton.icon(
             onPressed: count == 0 || _savingAll ? null : _saveAll,
             icon: _savingAll
@@ -170,7 +170,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                 : const Icon(Icons.download, size: 16),
             label: const Text('Save all'),
           ),
-          const SizedBox(width: Ink.s2),
+          const SizedBox(width: Skin.s2),
           IconButton(
             tooltip: 'Clear',
             icon: const Icon(Icons.delete_outline, size: 19),
@@ -186,9 +186,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
       onTap: () => _open(r),
       child: Container(
         decoration: BoxDecoration(
-          color: Ink.surface,
-          borderRadius: BorderRadius.circular(Ink.rMd),
-          border: Border.all(color: Ink.line),
+          color: Skin.surface,
+          borderRadius: BorderRadius.circular(Skin.rMd),
+          border: Border.all(color: Skin.line),
         ),
         clipBehavior: Clip.antiAlias,
         child: Stack(
@@ -201,15 +201,15 @@ class _GalleryScreenState extends State<GalleryScreen> {
               bottom: 0,
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: Ink.s2,
+                  horizontal: Skin.s2,
                   vertical: 6,
                 ),
-                color: Ink.canvas.withValues(alpha: 0.78),
+                color: Skin.canvas.withValues(alpha: 0.78),
                 child: Text(
                   r.prompt,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 11.5, color: Ink.textDim),
+                  style: const TextStyle(fontSize: 11.5, color: Skin.textDim),
                 ),
               ),
             ),
@@ -223,7 +223,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
     showDialog<void>(
       context: context,
       builder: (context) => Dialog(
-        insetPadding: const EdgeInsets.all(Ink.s4),
+        insetPadding: const EdgeInsets.all(Skin.s4),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 900, maxHeight: 820),
           child: Column(
@@ -236,22 +236,22 @@ class _GalleryScreenState extends State<GalleryScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(Ink.s4),
+                padding: const EdgeInsets.all(Skin.s4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(r.prompt,
                         style: const TextStyle(
                           fontSize: 13.5,
-                          color: Ink.text,
+                          color: Skin.text,
                           height: 1.45,
                         )),
-                    const SizedBox(height: Ink.s3),
+                    const SizedBox(height: Skin.s3),
                     MetaRow('Size', r.prettyDimensions),
                     MetaRow('Format', r.format.toUpperCase()),
                     MetaRow('Weight', r.prettySize),
                     MetaRow('Created', r.createdAt.toString().substring(0, 19)),
-                    const SizedBox(height: Ink.s3),
+                    const SizedBox(height: Skin.s3),
                     Row(
                       children: [
                         OutlinedButton.icon(
@@ -266,13 +266,13 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           icon: const Icon(Icons.download, size: 16),
                           label: const Text('Save'),
                         ),
-                        const SizedBox(width: Ink.s2),
+                        const SizedBox(width: Skin.s2),
                         OutlinedButton.icon(
                           onPressed: () => ImageIo.share(r, _preset),
                           icon: const Icon(Icons.ios_share, size: 16),
                           label: const Text('Share'),
                         ),
-                        const SizedBox(width: Ink.s2),
+                        const SizedBox(width: Skin.s2),
                         OutlinedButton.icon(
                           onPressed: () => showDevicePreview(
                             context,

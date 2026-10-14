@@ -164,14 +164,14 @@ class _StudioScreenState extends State<StudioScreen> {
             width: 380,
             child: SingleChildScrollView(
               controller: _scroll,
-              padding: const EdgeInsets.all(Ink.s5),
+              padding: const EdgeInsets.all(Skin.s5),
               child: _controls(),
             ),
           ),
-          const VerticalDivider(width: 1, color: Ink.line),
+          const VerticalDivider(width: 1, color: Skin.line),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(Ink.s5),
+              padding: const EdgeInsets.all(Skin.s5),
               child: _canvas(),
             ),
           ),
@@ -181,10 +181,10 @@ class _StudioScreenState extends State<StudioScreen> {
 
     return ListView(
       controller: _scroll,
-      padding: screenScrollPadding(context, Ink.s4),
+      padding: screenScrollPadding(context, Skin.s4),
       children: [
         _controls(),
-        const SizedBox(height: Ink.s4),
+        const SizedBox(height: Skin.s4),
         SizedBox(height: 420, child: _canvas()),
       ],
     );
@@ -204,22 +204,22 @@ class _StudioScreenState extends State<StudioScreen> {
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.5,
-                    color: Ink.text,
+                    color: Skin.text,
                   )),
             ),
             _backendPill(),
           ],
         ),
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
 
         if (!_ready) ...[
           NoticeBar(
             icon: Icons.link_off,
             title: 'No image backend connected',
             message: 'Finish setup in Settings before generating.',
-            tone: Ink.info,
+            tone: Skin.info,
           ),
-          const SizedBox(height: Ink.s4),
+          const SizedBox(height: Skin.s4),
         ],
 
         const SectionLabel('Prompt'),
@@ -235,15 +235,15 @@ class _StudioScreenState extends State<StudioScreen> {
           onChanged: (_) => setState(() {}),
         ),
         if (_history.isNotEmpty) ...[
-          const SizedBox(height: Ink.s3),
+          const SizedBox(height: Skin.s3),
           _historyChips(),
         ],
 
-        const SizedBox(height: Ink.s4),
+        const SizedBox(height: Skin.s4),
         const SectionLabel('Export size'),
         _presetPicker(),
 
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
         SizedBox(
           width: double.infinity,
           child: FilledButton.icon(
@@ -261,19 +261,19 @@ class _StudioScreenState extends State<StudioScreen> {
         ),
 
         if (_stage != null) ...[
-          const SizedBox(height: Ink.s4),
+          const SizedBox(height: Skin.s4),
           StageStrip(caption: _stage!.label),
         ],
 
         if (_error != null) ...[
-          const SizedBox(height: Ink.s4),
+          const SizedBox(height: Skin.s4),
           NoticeBar(
             icon: _error!.kind == GenerationErrorKind.signedOut
                 ? Icons.lock_outline
                 : Icons.error_outline,
             title: _error!.title,
             message: _error!.message,
-            tone: Ink.danger,
+            tone: Skin.danger,
             actionLabel: _error!.detail != null ? 'Details' : null,
             action: _error!.detail != null ? _showDetail : null,
           ),
@@ -285,13 +285,13 @@ class _StudioScreenState extends State<StudioScreen> {
   Widget _backendPill() {
     final gen = _generator;
     final name = gen?.displayName ?? 'Loading...';
-    final tone = _ready ? Ink.success : Ink.textFaint;
+    final tone = _ready ? Skin.success : Skin.textFaint;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Ink.s2, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: Skin.s2, vertical: 5),
       decoration: BoxDecoration(
-        color: Ink.raised,
-        borderRadius: BorderRadius.circular(Ink.rSm),
-        border: Border.all(color: Ink.line),
+        color: Skin.raised,
+        borderRadius: BorderRadius.circular(Skin.rSm),
+        border: Border.all(color: Skin.line),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -303,7 +303,7 @@ class _StudioScreenState extends State<StudioScreen> {
           ),
           const SizedBox(width: 6),
           Text(name,
-              style: const TextStyle(fontSize: 11.5, color: Ink.textDim)),
+              style: const TextStyle(fontSize: 11.5, color: Skin.textDim)),
         ],
       ),
     );
@@ -315,7 +315,7 @@ class _StudioScreenState extends State<StudioScreen> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: _history.length,
-        separatorBuilder: (_, __) => const SizedBox(width: Ink.s2),
+        separatorBuilder: (_, __) => const SizedBox(width: Skin.s2),
         itemBuilder: (context, i) {
           final p = _history[i];
           final short = p.length > 28 ? '${p.substring(0, 28)}...' : p;
@@ -333,8 +333,8 @@ class _StudioScreenState extends State<StudioScreen> {
 
   Widget _presetPicker() {
     return Wrap(
-      spacing: Ink.s2,
-      runSpacing: Ink.s2,
+      spacing: Skin.s2,
+      runSpacing: Skin.s2,
       children: [
         for (var i = 0; i < ExportPresets.all.length; i++)
           ChoiceChip(
@@ -343,7 +343,7 @@ class _StudioScreenState extends State<StudioScreen> {
             showCheckmark: false,
             labelStyle: TextStyle(
               fontSize: 12.5,
-              color: _preset == i ? Ink.onAccent : Ink.textDim,
+              color: _preset == i ? Skin.onAccent : Skin.textDim,
               fontWeight: _preset == i ? FontWeight.w600 : FontWeight.w400,
             ),
             onSelected: (_) async {
@@ -361,7 +361,7 @@ class _StudioScreenState extends State<StudioScreen> {
     final r = _current;
     return Panel(
       padding: EdgeInsets.zero,
-      color: Ink.canvas,
+      color: Skin.canvas,
       child: Column(
         children: [
           Expanded(
@@ -378,9 +378,9 @@ class _StudioScreenState extends State<StudioScreen> {
                     maxScale: 6,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(Ink.s3),
+                        padding: const EdgeInsets.all(Skin.s3),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(Ink.rSm),
+                          borderRadius: BorderRadius.circular(Skin.rSm),
                           child: Image.memory(r.data, fit: BoxFit.contain),
                         ),
                       ),
@@ -396,10 +396,10 @@ class _StudioScreenState extends State<StudioScreen> {
   Widget _inspector(GenerationResult r) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(Ink.s3),
+      padding: const EdgeInsets.all(Skin.s3),
       decoration: const BoxDecoration(
-        color: Ink.surface,
-        border: Border(top: BorderSide(color: Ink.line)),
+        color: Skin.surface,
+        border: Border(top: BorderSide(color: Skin.line)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,7 +409,7 @@ class _StudioScreenState extends State<StudioScreen> {
               Expanded(
                 child: Text(
                   '${r.prettyDimensions}  /  ${r.format.toUpperCase()}  /  ${r.prettySize}',
-                  style: const TextStyle(fontSize: 12.5, color: Ink.textDim),
+                  style: const TextStyle(fontSize: 12.5, color: Skin.textDim),
                 ),
               ),
               IconButton(
@@ -447,7 +447,7 @@ class _StudioScreenState extends State<StudioScreen> {
         content: SingleChildScrollView(
           child: SelectableText(
             detail,
-            style: const TextStyle(fontSize: 12.5, color: Ink.textDim),
+            style: const TextStyle(fontSize: 12.5, color: Skin.textDim),
           ),
         ),
         actions: [

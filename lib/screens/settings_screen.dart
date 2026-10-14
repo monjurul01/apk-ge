@@ -154,33 +154,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     return ListView(
-      padding: screenScrollPadding(context, Ink.s5),
+      padding: screenScrollPadding(context, Skin.s5),
       children: [
         const Text('Settings',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w700,
               letterSpacing: -0.5,
-              color: Ink.text,
+              color: Skin.text,
             )),
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
 
         const SectionLabel('Image backend'),
         _backendPanel(),
 
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
         const SectionLabel('Export'),
         _exportPanel(),
 
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
         const SectionLabel('Prompt authoring'),
         _geminiPanel(),
 
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
         const SectionLabel('Advanced'),
         _selectorPanel(),
 
-        const SizedBox(height: Ink.s5),
+        const SizedBox(height: Skin.s5),
         _aboutPanel(),
       ],
     );
@@ -200,17 +200,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: 8,
                 height: 8,
                 decoration: BoxDecoration(
-                  color: usable ? Ink.success : Ink.textFaint,
+                  color: usable ? Skin.success : Skin.textFaint,
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(width: Ink.s2),
+              const SizedBox(width: Skin.s2),
               const Expanded(
                 child: Text('Dola',
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Ink.text,
+                      color: Skin.text,
                     )),
               ),
               if (usable)
@@ -220,11 +220,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
             ],
           ),
-          const SizedBox(height: Ink.s1),
+          const SizedBox(height: Skin.s1),
           Text(_session.summary,
-              style: const TextStyle(fontSize: 13, color: Ink.textDim)),
+              style: const TextStyle(fontSize: 13, color: Skin.textDim)),
 
-          const SizedBox(height: Ink.s4),
+          const SizedBox(height: Skin.s4),
           const NoticeBar(
             icon: Icons.info_outline,
             title: 'Sign-in works; generation is not connected yet',
@@ -232,10 +232,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 'You can sign in and save a session here. The generation '
                 'driver itself still needs to be connected, so generating '
                 'will fail until then.',
-            tone: Ink.info,
+            tone: Skin.info,
           ),
 
-          const SizedBox(height: Ink.s4),
+          const SizedBox(height: Skin.s4),
           Row(
             children: [
               FilledButton.icon(
@@ -252,14 +252,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           if (_showCookieField) ...[
-            const SizedBox(height: Ink.s3),
+            const SizedBox(height: Skin.s3),
             const Text(
               'Fallback: export cookies from a desktop browser with a '
               'cookie-export extension and paste the JSON here. A raw '
               '"name=value; name=value" header works too.',
-              style: TextStyle(fontSize: 12.5, color: Ink.textFaint, height: 1.5),
+              style: TextStyle(fontSize: 12.5, color: Skin.textFaint, height: 1.5),
             ),
-            const SizedBox(height: Ink.s3),
+            const SizedBox(height: Skin.s3),
             TextField(
               controller: _cookieCtl,
               maxLines: 5,
@@ -269,14 +269,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 hintText: '[{"name":"sessionid","value":"...","domain":".dola.com"}]',
               ),
             ),
-            const SizedBox(height: Ink.s3),
+            const SizedBox(height: Skin.s3),
             Row(
               children: [
                 FilledButton(
                   onPressed: _saveCookies,
                   child: const Text('Save session'),
                 ),
-                const SizedBox(width: Ink.s2),
+                const SizedBox(width: Skin.s2),
                 TextButton(
                   onPressed: () => setState(() {
                     _showCookieField = false;
@@ -288,15 +288,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
 
-          const SizedBox(height: Ink.s4),
-          const Divider(height: 1, color: Ink.line),
-          const SizedBox(height: Ink.s3),
+          const SizedBox(height: Skin.s4),
+          const Divider(height: 1, color: Skin.line),
+          const SizedBox(height: Skin.s3),
           const Text(
             'These cookies are account credentials. They are kept in this '
             'device\'s secure storage and sent only to dola.com. Driving a '
             'consumer account from an app is against Dola\'s terms of '
             'service, and the account can be throttled or banned for it.',
-            style: TextStyle(fontSize: 12, color: Ink.textFaint, height: 1.5),
+            style: TextStyle(fontSize: 12, color: Skin.textFaint, height: 1.5),
           ),
         ],
       ),
@@ -314,18 +314,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Ink.text,
+                color: Skin.text,
               )),
-          const SizedBox(height: Ink.s1),
+          const SizedBox(height: Skin.s1),
           const Text(
             'Resizing and cropping now runs on this device, so saving works '
             'offline and does not depend on a delivery URL staying alive.',
-            style: TextStyle(fontSize: 12.5, color: Ink.textFaint, height: 1.5),
+            style: TextStyle(fontSize: 12.5, color: Skin.textFaint, height: 1.5),
           ),
-          const SizedBox(height: Ink.s3),
+          const SizedBox(height: Skin.s3),
           Wrap(
-            spacing: Ink.s2,
-            runSpacing: Ink.s2,
+            spacing: Skin.s2,
+            runSpacing: Skin.s2,
             children: [
               for (var i = 0; i < ExportPresets.all.length; i++)
                 ChoiceChip(
@@ -334,7 +334,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   showCheckmark: false,
                   labelStyle: TextStyle(
                     fontSize: 12.5,
-                    color: _preset == i ? Ink.onAccent : Ink.textDim,
+                    color: _preset == i ? Skin.onAccent : Skin.textDim,
                   ),
                   onSelected: (_) async {
                     setState(() => _preset = i);
@@ -364,19 +364,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: Ink.text,
+                      color: Skin.text,
                     )),
                 SizedBox(height: 2),
                 Text(
                   'Used only to write prompt metadata - never for image '
                   'generation.',
-                  style: TextStyle(fontSize: 12.5, color: Ink.textFaint),
+                  style: TextStyle(fontSize: 12.5, color: Skin.textFaint),
                 ),
               ],
             ),
           ),
           Text(_geminiSummary,
-              style: const TextStyle(fontSize: 12.5, color: Ink.textDim)),
+              style: const TextStyle(fontSize: 12.5, color: Skin.textDim)),
         ],
       ),
     );
@@ -393,17 +393,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Ink.text,
+                color: Skin.text,
               )),
-          const SizedBox(height: Ink.s1),
+          const SizedBox(height: Skin.s1),
           const Text(
             'Dola has no public API, so the app drives its web page directly. '
             'If Dola ships a redesign, generation breaks with "could not find '
             'the prompt box" - paste corrected CSS selectors here to fix it '
             'without waiting for an app update. Leave empty for the defaults.',
-            style: TextStyle(fontSize: 12.5, color: Ink.textFaint, height: 1.5),
+            style: TextStyle(fontSize: 12.5, color: Skin.textFaint, height: 1.5),
           ),
-          const SizedBox(height: Ink.s3),
+          const SizedBox(height: Skin.s3),
           TextField(
             controller: _selectorCtl,
             maxLines: 10,
@@ -413,14 +413,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               hintText: DolaSelectors.defaults.toPrettyJson(),
             ),
           ),
-          const SizedBox(height: Ink.s3),
+          const SizedBox(height: Skin.s3),
           Row(
             children: [
               OutlinedButton(
                 onPressed: _saveSelectors,
                 child: const Text('Save selectors'),
               ),
-              const SizedBox(width: Ink.s2),
+              const SizedBox(width: Skin.s2),
               TextButton(
                 onPressed: () {
                   _selectorCtl.text = DolaSelectors.defaults.toPrettyJson();
@@ -446,7 +446,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _aboutPanel() {
     return Panel(
-      color: Ink.canvas,
+      color: Skin.canvas,
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -454,12 +454,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 13.5,
                 fontWeight: FontWeight.w600,
-                color: Ink.textDim,
+                color: Skin.textDim,
               )),
           SizedBox(height: 4),
           Text(
             'Text-to-image generation for Windows and Android.',
-            style: TextStyle(fontSize: 12.5, color: Ink.textFaint),
+            style: TextStyle(fontSize: 12.5, color: Skin.textFaint),
           ),
         ],
       ),

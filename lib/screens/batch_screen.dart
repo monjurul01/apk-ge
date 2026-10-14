@@ -197,20 +197,20 @@ class _BatchScreenState extends State<BatchScreen> {
     return Column(
       children: [
         _header(),
-        const Divider(height: 1, color: Ink.line),
+        const Divider(height: 1, color: Skin.line),
         Expanded(
           child: ListView(
-            padding: screenScrollPadding(context, Ink.s4),
+            padding: screenScrollPadding(context, Skin.s4),
             children: [
               _composer(),
               if (_stageCaption != null) ...[
-                const SizedBox(height: Ink.s4),
+                const SizedBox(height: Skin.s4),
                 StageStrip(caption: _stageCaption!),
               ],
-              const SizedBox(height: Ink.s5),
+              const SizedBox(height: Skin.s5),
               if (_jobs.isEmpty)
                 const Padding(
-                  padding: EdgeInsets.only(top: Ink.s6),
+                  padding: EdgeInsets.only(top: Skin.s6),
                   child: EmptyState(
                     icon: Icons.layers_outlined,
                     title: 'Queue is empty',
@@ -224,7 +224,7 @@ class _BatchScreenState extends State<BatchScreen> {
                 const SectionLabel('Queue'),
                 for (var i = 0; i < _jobs.length; i++) ...[
                   _jobRow(i, _jobs[i]),
-                  if (i != _jobs.length - 1) const SizedBox(height: Ink.s2),
+                  if (i != _jobs.length - 1) const SizedBox(height: Skin.s2),
                 ],
               ],
             ],
@@ -236,7 +236,7 @@ class _BatchScreenState extends State<BatchScreen> {
 
   Widget _header() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(Ink.s5, Ink.s4, Ink.s4, Ink.s4),
+      padding: const EdgeInsets.fromLTRB(Skin.s5, Skin.s4, Skin.s4, Skin.s4),
       child: Row(
         children: [
           const Text('Batch',
@@ -244,14 +244,14 @@ class _BatchScreenState extends State<BatchScreen> {
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
                 letterSpacing: -0.5,
-                color: Ink.text,
+                color: Skin.text,
               )),
-          const SizedBox(width: Ink.s3),
+          const SizedBox(width: Skin.s3),
           if (_jobs.isNotEmpty)
             Text(
               '${_count(JobStatus.done)} done  /  ${_count(JobStatus.queued)} queued'
               '${_count(JobStatus.failed) > 0 ? '  /  ${_count(JobStatus.failed)} failed' : ''}',
-              style: const TextStyle(fontSize: 12.5, color: Ink.textFaint),
+              style: const TextStyle(fontSize: 12.5, color: Skin.textFaint),
             ),
           const Spacer(),
           if (_jobs.any((j) => j.result != null))
@@ -260,7 +260,7 @@ class _BatchScreenState extends State<BatchScreen> {
               icon: const Icon(Icons.download, size: 16),
               label: const Text('Save done'),
             ),
-          const SizedBox(width: Ink.s2),
+          const SizedBox(width: Skin.s2),
           if (_running)
             OutlinedButton.icon(
               onPressed: () => setState(() => _cancel = true),
@@ -299,7 +299,7 @@ class _BatchScreenState extends State<BatchScreen> {
                   'Brass orrery on a dark desk',
             ),
           ),
-          const SizedBox(height: Ink.s3),
+          const SizedBox(height: Skin.s3),
           Row(
             children: [
               FilledButton.icon(
@@ -324,21 +324,21 @@ class _BatchScreenState extends State<BatchScreen> {
 
   Widget _jobRow(int index, _Job job) {
     final (icon, tone) = switch (job.status) {
-      JobStatus.queued => (Icons.schedule, Ink.textFaint),
-      JobStatus.running => (Icons.autorenew, Ink.accent),
-      JobStatus.done => (Icons.check_circle_outline, Ink.success),
-      JobStatus.failed => (Icons.error_outline, Ink.danger),
-      JobStatus.skipped => (Icons.remove_circle_outline, Ink.textFaint),
+      JobStatus.queued => (Icons.schedule, Skin.textFaint),
+      JobStatus.running => (Icons.autorenew, Skin.accent),
+      JobStatus.done => (Icons.check_circle_outline, Skin.success),
+      JobStatus.failed => (Icons.error_outline, Skin.danger),
+      JobStatus.skipped => (Icons.remove_circle_outline, Skin.textFaint),
     };
 
     return Panel(
-      padding: const EdgeInsets.all(Ink.s3),
+      padding: const EdgeInsets.all(Skin.s3),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (job.result != null)
             ClipRRect(
-              borderRadius: BorderRadius.circular(Ink.rSm),
+              borderRadius: BorderRadius.circular(Skin.rSm),
               child: Image.memory(
                 job.result!.data,
                 width: 40,
@@ -348,7 +348,7 @@ class _BatchScreenState extends State<BatchScreen> {
             )
           else
             Icon(icon, size: 18, color: tone),
-          const SizedBox(width: Ink.s3),
+          const SizedBox(width: Skin.s3),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -357,7 +357,7 @@ class _BatchScreenState extends State<BatchScreen> {
                   job.prompt,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 13.5, color: Ink.text),
+                  style: const TextStyle(fontSize: 13.5, color: Skin.text),
                 ),
                 if (job.error != null) ...[
                   const SizedBox(height: 2),
@@ -365,7 +365,7 @@ class _BatchScreenState extends State<BatchScreen> {
                     job.error!.message,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12, color: Ink.danger),
+                    style: const TextStyle(fontSize: 12, color: Skin.danger),
                   ),
                 ],
               ],

@@ -154,7 +154,7 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Ink.canvas,
+      backgroundColor: Skin.canvas,
       appBar: AppBar(
         title: const Text('Sign in to Dola'),
         actions: [
@@ -179,13 +179,13 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
               const SizedBox(height: 2),
 
             Padding(
-              padding: const EdgeInsets.all(Ink.s3),
+              padding: const EdgeInsets.all(Skin.s3),
               child: _statusBanner(),
             ),
 
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(Ink.rSm),
+                borderRadius: BorderRadius.circular(Skin.rSm),
                 child: InAppWebView(
                   initialUrlRequest: URLRequest(url: WebUri(_startUrl)),
                   initialSettings: InAppWebViewSettings(
@@ -216,7 +216,7 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
                     await showDialog<void>(
                       context: context,
                       builder: (context) => Dialog(
-                        insetPadding: const EdgeInsets.all(Ink.s4),
+                        insetPadding: const EdgeInsets.all(Skin.s4),
                         child: SizedBox(
                           width: 520,
                           height: 640,
@@ -251,7 +251,7 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
       return const NoticeBar(
         icon: Icons.check_circle_outline,
         title: 'Session saved',
-        tone: Ink.success,
+        tone: Skin.success,
       );
     }
     if (_signedIn) {
@@ -261,7 +261,7 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
         message: 'Found ${_authFound.length} session '
             '${_authFound.length == 1 ? 'cookie' : 'cookies'}. '
             'Save to keep this session on the device.',
-        tone: Ink.success,
+        tone: Skin.success,
       );
     }
     return const NoticeBar(
@@ -269,21 +269,21 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
       title: 'Sign in with your own Dola account',
       message: 'Use the page below exactly as you would in a browser. '
           'This screen only watches for a completed sign-in.',
-      tone: Ink.info,
+      tone: Skin.info,
     );
   }
 
   Widget _bottomBar() {
     return Container(
       padding: EdgeInsets.fromLTRB(
-        Ink.s3,
-        Ink.s3,
-        Ink.s3,
-        Ink.s3 + MediaQuery.paddingOf(context).bottom,
+        Skin.s3,
+        Skin.s3,
+        Skin.s3,
+        Skin.s3 + MediaQuery.paddingOf(context).bottom,
       ),
       decoration: const BoxDecoration(
-        color: Ink.surface,
-        border: Border(top: BorderSide(color: Ink.line)),
+        color: Skin.surface,
+        border: Border(top: BorderSide(color: Skin.line)),
       ),
       child: Row(
         children: [
@@ -292,10 +292,10 @@ class _DolaLoginScreenState extends State<DolaLoginScreen> {
               _url.isEmpty ? DolaSelectors.defaults.chatUrl : _url,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 11.5, color: Ink.textFaint),
+              style: const TextStyle(fontSize: 11.5, color: Skin.textFaint),
             ),
           ),
-          const SizedBox(width: Ink.s3),
+          const SizedBox(width: Skin.s3),
           FilledButton.icon(
             onPressed: _signedIn && !_saving ? _saveSession : null,
             icon: _saving

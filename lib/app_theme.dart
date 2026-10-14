@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 /// Deliberately a single dark palette rather than a seeded light/dark pair:
 /// the app is an image tool, and a neutral near-black canvas is the only
 /// honest background to judge colour against.
-class Ink {
-  Ink._();
+class Skin {
+  Skin._();
 
   /// App background - near black, very slightly blue so it reads as
   /// intentional rather than washed-out grey.
@@ -59,34 +59,34 @@ class AppTheme {
 
   static ThemeData dark() {
     const scheme = ColorScheme.dark(
-      primary: Ink.accent,
-      onPrimary: Ink.onAccent,
-      secondary: Ink.info,
-      onSecondary: Ink.onAccent,
-      surface: Ink.surface,
-      onSurface: Ink.text,
-      error: Ink.danger,
-      onError: Ink.onAccent,
-      outline: Ink.line,
-      outlineVariant: Ink.lineBright,
+      primary: Skin.accent,
+      onPrimary: Skin.onAccent,
+      secondary: Skin.info,
+      onSecondary: Skin.onAccent,
+      surface: Skin.surface,
+      onSurface: Skin.text,
+      error: Skin.danger,
+      onError: Skin.onAccent,
+      outline: Skin.line,
+      outlineVariant: Skin.lineBright,
     );
 
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
-      scaffoldBackgroundColor: Ink.canvas,
-      canvasColor: Ink.canvas,
-      dividerColor: Ink.line,
+      scaffoldBackgroundColor: Skin.canvas,
+      canvasColor: Skin.canvas,
+      dividerColor: Skin.line,
       splashFactory: InkSparkle.splashFactory,
       visualDensity: VisualDensity.compact,
       appBarTheme: const AppBarTheme(
-        backgroundColor: Ink.canvas,
-        foregroundColor: Ink.text,
+        backgroundColor: Skin.canvas,
+        foregroundColor: Skin.text,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
-          color: Ink.text,
+          color: Skin.text,
           fontSize: 17,
           fontWeight: FontWeight.w600,
           letterSpacing: -0.2,
@@ -94,50 +94,50 @@ class AppTheme {
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       cardTheme: CardThemeData(
-        color: Ink.surface,
+        color: Skin.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Ink.rMd),
-          side: const BorderSide(color: Ink.line),
+          borderRadius: BorderRadius.circular(Skin.rMd),
+          side: const BorderSide(color: Skin.line),
         ),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: Ink.raised,
+        backgroundColor: Skin.raised,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Ink.rLg),
-          side: const BorderSide(color: Ink.line),
+          borderRadius: BorderRadius.circular(Skin.rLg),
+          side: const BorderSide(color: Skin.line),
         ),
       ),
       popupMenuTheme: PopupMenuThemeData(
-        color: Ink.raised,
+        color: Skin.raised,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Ink.rMd),
-          side: const BorderSide(color: Ink.line),
+          borderRadius: BorderRadius.circular(Skin.rMd),
+          side: const BorderSide(color: Skin.line),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Ink.raised,
-        hintStyle: const TextStyle(color: Ink.textFaint),
+        fillColor: Skin.raised,
+        hintStyle: const TextStyle(color: Skin.textFaint),
         contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
-        border: _field(Ink.line),
-        enabledBorder: _field(Ink.line),
-        focusedBorder: _field(Ink.accent, width: 1.4),
-        errorBorder: _field(Ink.danger),
-        focusedErrorBorder: _field(Ink.danger, width: 1.4),
+        border: _field(Skin.line),
+        enabledBorder: _field(Skin.line),
+        focusedBorder: _field(Skin.accent, width: 1.4),
+        errorBorder: _field(Skin.danger),
+        focusedErrorBorder: _field(Skin.danger, width: 1.4),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: Ink.accent,
-          foregroundColor: Ink.onAccent,
-          disabledBackgroundColor: Ink.sunken,
-          disabledForegroundColor: Ink.textFaint,
+          backgroundColor: Skin.accent,
+          foregroundColor: Skin.onAccent,
+          disabledBackgroundColor: Skin.sunken,
+          disabledForegroundColor: Skin.textFaint,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Ink.rMd),
+            borderRadius: BorderRadius.circular(Skin.rMd),
           ),
           textStyle: const TextStyle(
             fontSize: 15,
@@ -148,61 +148,61 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: Ink.text,
-          side: const BorderSide(color: Ink.lineBright),
+          foregroundColor: Skin.text,
+          side: const BorderSide(color: Skin.lineBright),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Ink.rMd),
+            borderRadius: BorderRadius.circular(Skin.rMd),
           ),
           textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: Ink.accent,
+          foregroundColor: Skin.accent,
           textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
-        style: IconButton.styleFrom(foregroundColor: Ink.textDim),
+        style: IconButton.styleFrom(foregroundColor: Skin.textDim),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: Ink.raised,
-        selectedColor: Ink.accent,
-        side: const BorderSide(color: Ink.line),
-        labelStyle: const TextStyle(fontSize: 13, color: Ink.text),
+        backgroundColor: Skin.raised,
+        selectedColor: Skin.accent,
+        side: const BorderSide(color: Skin.line),
+        labelStyle: const TextStyle(fontSize: 13, color: Skin.text),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Ink.rSm),
+          borderRadius: BorderRadius.circular(Skin.rSm),
         ),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: Ink.raised,
-        contentTextStyle: const TextStyle(color: Ink.text, fontSize: 14),
-        actionTextColor: Ink.accent,
+        backgroundColor: Skin.raised,
+        contentTextStyle: const TextStyle(color: Skin.text, fontSize: 14),
+        actionTextColor: Skin.accent,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Ink.rMd),
-          side: const BorderSide(color: Ink.line),
+          borderRadius: BorderRadius.circular(Skin.rMd),
+          side: const BorderSide(color: Skin.line),
         ),
       ),
       navigationRailTheme: const NavigationRailThemeData(
-        backgroundColor: Ink.canvas,
-        indicatorColor: Ink.sunken,
-        selectedIconTheme: IconThemeData(color: Ink.accent, size: 22),
-        unselectedIconTheme: IconThemeData(color: Ink.textFaint, size: 22),
+        backgroundColor: Skin.canvas,
+        indicatorColor: Skin.sunken,
+        selectedIconTheme: IconThemeData(color: Skin.accent, size: 22),
+        unselectedIconTheme: IconThemeData(color: Skin.textFaint, size: 22),
         selectedLabelTextStyle: TextStyle(
-          color: Ink.text,
+          color: Skin.text,
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelTextStyle: TextStyle(
-          color: Ink.textFaint,
+          color: Skin.textFaint,
           fontSize: 12,
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: Ink.surface,
-        indicatorColor: Ink.sunken,
+        backgroundColor: Skin.surface,
+        indicatorColor: Skin.sunken,
         elevation: 0,
         height: 64,
         labelTextStyle: WidgetStateProperty.resolveWith(
@@ -211,51 +211,51 @@ class AppTheme {
             fontWeight: s.contains(WidgetState.selected)
                 ? FontWeight.w600
                 : FontWeight.w400,
-            color: s.contains(WidgetState.selected) ? Ink.text : Ink.textFaint,
+            color: s.contains(WidgetState.selected) ? Skin.text : Skin.textFaint,
           ),
         ),
         iconTheme: WidgetStateProperty.resolveWith(
           (s) => IconThemeData(
             size: 22,
-            color: s.contains(WidgetState.selected) ? Ink.accent : Ink.textFaint,
+            color: s.contains(WidgetState.selected) ? Skin.accent : Skin.textFaint,
           ),
         ),
       ),
       sliderTheme: const SliderThemeData(
-        activeTrackColor: Ink.accent,
-        inactiveTrackColor: Ink.sunken,
-        thumbColor: Ink.accent,
+        activeTrackColor: Skin.accent,
+        inactiveTrackColor: Skin.sunken,
+        thumbColor: Skin.accent,
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: Ink.accent,
-        linearTrackColor: Ink.sunken,
-        circularTrackColor: Ink.sunken,
+        color: Skin.accent,
+        linearTrackColor: Skin.sunken,
+        circularTrackColor: Skin.sunken,
       ),
       tooltipTheme: TooltipThemeData(
         decoration: BoxDecoration(
-          color: Ink.raised,
-          borderRadius: BorderRadius.circular(Ink.rSm),
-          border: Border.all(color: Ink.line),
+          color: Skin.raised,
+          borderRadius: BorderRadius.circular(Skin.rSm),
+          border: Border.all(color: Skin.line),
         ),
-        textStyle: const TextStyle(color: Ink.text, fontSize: 12),
+        textStyle: const TextStyle(color: Skin.text, fontSize: 12),
       ),
       textTheme: const TextTheme(
         titleLarge: TextStyle(
-          color: Ink.text,
+          color: Skin.text,
           fontSize: 20,
           fontWeight: FontWeight.w700,
           letterSpacing: -0.4,
         ),
         titleMedium: TextStyle(
-          color: Ink.text,
+          color: Skin.text,
           fontSize: 15,
           fontWeight: FontWeight.w600,
           letterSpacing: -0.1,
         ),
-        bodyMedium: TextStyle(color: Ink.text, fontSize: 14, height: 1.45),
-        bodySmall: TextStyle(color: Ink.textDim, fontSize: 13, height: 1.4),
+        bodyMedium: TextStyle(color: Skin.text, fontSize: 14, height: 1.45),
+        bodySmall: TextStyle(color: Skin.textDim, fontSize: 13, height: 1.4),
         labelSmall: TextStyle(
-          color: Ink.textFaint,
+          color: Skin.textFaint,
           fontSize: 11,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.8,
@@ -266,7 +266,7 @@ class AppTheme {
 
   static OutlineInputBorder _field(Color c, {double width = 1}) =>
       OutlineInputBorder(
-        borderRadius: BorderRadius.circular(Ink.rMd),
+        borderRadius: BorderRadius.circular(Skin.rMd),
         borderSide: BorderSide(color: c, width: width),
       );
 }
@@ -277,7 +277,7 @@ class AppTheme {
 /// the app. Adding the [MediaQuery] bottom inset keeps the last widgets
 /// fully visible on every screen size, while desktop is unaffected because
 /// the inset is zero there.
-EdgeInsets screenScrollPadding(BuildContext context, [double base = Ink.s4]) {
+EdgeInsets screenScrollPadding(BuildContext context, [double base = Skin.s4]) {
   final bottom = MediaQuery.paddingOf(context).bottom;
   return EdgeInsets.fromLTRB(base, base, base, base + bottom);
 }

@@ -479,7 +479,7 @@ class _PhoneFrame extends StatelessWidget {
     // Front / back.
     if (cx * cy > eps) {
       faces.add(_DrawFace(
-        Matrix4.identity()..translate(0.0, 0.0, t),
+        Matrix4.identity()..translateByDouble(0.0, 0.0, t, 1.0),
         _frontBody(),
         t * cx * cy,
       ));
@@ -489,7 +489,7 @@ class _PhoneFrame extends StatelessWidget {
         // Same orientation trick as the old whole-phone flip:
         // rotate pi about Y, then sit behind.
         Matrix4.identity()
-          ..translate(0.0, 0.0, -t)
+          ..translateByDouble(0.0, 0.0, -t, 1.0)
           ..rotateY(pi),
         _backBody(),
         -t * cx * cy,
@@ -569,7 +569,7 @@ class _PhoneFrame extends StatelessWidget {
                       margin:
                           const EdgeInsets.symmetric(horizontal: 2.5),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
+                        color: Colors.black.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(1),
                       ),
                     ),
@@ -634,7 +634,7 @@ class _PhoneFrame extends StatelessWidget {
                         gradient: LinearGradient(
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.22),
+                            Colors.black.withValues(alpha: 0.22),
                             Colors.transparent,
                           ],
                         ),
@@ -685,7 +685,7 @@ class _PhoneFrame extends StatelessWidget {
                 left: width / 2 - 1,
                 width: 2,
                 child: Container(
-                    color: Colors.black.withOpacity(0.45)),
+                    color: Colors.black.withValues(alpha: 0.45)),
               ),
             // Hinge barrel on the spine edge (folded state).
             if (device == DeviceModel.fold && crease < 0.99)
@@ -919,11 +919,11 @@ Widget _scrim({bool top = true, bool bottom = true}) => Positioned.fill(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              if (top) Colors.black.withOpacity(0.45) else Colors.transparent,
+              if (top) Colors.black.withValues(alpha: 0.45) else Colors.transparent,
               Colors.transparent,
               Colors.transparent,
               if (bottom)
-                Colors.black.withOpacity(0.5)
+                Colors.black.withValues(alpha: 0.5)
               else
                 Colors.transparent,
             ],
@@ -997,7 +997,7 @@ class _LockOverlay extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 12),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.22),
+        color: Colors.white.withValues(alpha: 0.22),
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
@@ -1006,7 +1006,7 @@ class _LockOverlay extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(9),
             ),
             child: Icon(icon, size: 20, color: Colors.black87),
@@ -1052,7 +1052,7 @@ class _LockOverlay extends StatelessWidget {
         width: 46,
         height: 46,
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.35),
+          color: Colors.black.withValues(alpha: 0.35),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white, size: 22),
@@ -1107,7 +1107,7 @@ class _HomeOverlay extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.25),
+                color: Colors.white.withValues(alpha: 0.25),
                 borderRadius: BorderRadius.circular(24),
               ),
               child: const Row(
@@ -1183,7 +1183,7 @@ class _AppIcon extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [color, color.withOpacity(0.75)],
+              colors: [color, color.withValues(alpha: 0.75)],
             ),
             borderRadius: BorderRadius.circular(size * 0.28),
             boxShadow: const [
@@ -1215,14 +1215,14 @@ class _ChatOverlay extends StatelessWidget {
       children: [
         // dim the wallpaper slightly so bubbles read well
         Positioned.fill(
-            child: Container(color: Colors.black.withOpacity(0.25))),
+            child: Container(color: Colors.black.withValues(alpha: 0.25))),
         Column(
           children: [
             Container(
               padding: const EdgeInsets.only(
                   top: 44, left: 8, right: 8, bottom: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFF1c1c1e).withOpacity(0.92),
+                color: const Color(0xFF1c1c1e).withValues(alpha: 0.92),
                 borderRadius: const BorderRadius.vertical(
                     bottom: Radius.circular(16)),
               ),
@@ -1287,7 +1287,7 @@ class _ChatOverlay extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFF2c2c2e).withOpacity(0.95),
+                color: const Color(0xFF2c2c2e).withValues(alpha: 0.95),
                 borderRadius: BorderRadius.circular(24),
               ),
               child: const Row(
@@ -1326,8 +1326,8 @@ class _Bubble extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 180),
         decoration: BoxDecoration(
           color: mine
-              ? const Color(0xFF0a84ff).withOpacity(0.92)
-              : const Color(0xFF2c2c2e).withOpacity(0.92),
+              ? const Color(0xFF0a84ff).withValues(alpha: 0.92)
+              : const Color(0xFF2c2c2e).withValues(alpha: 0.92),
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(16),
             topRight: const Radius.circular(16),
@@ -1365,9 +1365,9 @@ class _CallOverlay extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.black.withOpacity(0.62),
-                Colors.black.withOpacity(0.30),
-                Colors.black.withOpacity(0.68),
+                Colors.black.withValues(alpha: 0.62),
+                Colors.black.withValues(alpha: 0.30),
+                Colors.black.withValues(alpha: 0.68),
               ],
             ),
           ),
@@ -1388,7 +1388,7 @@ class _CallOverlay extends StatelessWidget {
                   Color(0xFF0a84ff)
                 ]),
                 border: Border.all(
-                    color: Colors.white.withOpacity(0.6), width: 2),
+                    color: Colors.white.withValues(alpha: 0.6), width: 2),
               ),
               child: const Center(
                   child: Text('M',
@@ -1415,7 +1415,7 @@ class _CallOverlay extends StatelessWidget {
                   Column(
                     children: [
                       _callButton(Icons.message_outlined,
-                          Colors.white.withOpacity(0.25)),
+                          Colors.white.withValues(alpha: 0.25)),
                       const SizedBox(height: 6),
                       const Text('Message',
                           style: TextStyle(
@@ -1425,7 +1425,7 @@ class _CallOverlay extends StatelessWidget {
                   Column(
                     children: [
                       _callButton(Icons.alarm_outlined,
-                          Colors.white.withOpacity(0.25)),
+                          Colors.white.withValues(alpha: 0.25)),
                       const SizedBox(height: 6),
                       const Text('Remind',
                           style: TextStyle(
