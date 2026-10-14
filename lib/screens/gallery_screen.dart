@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_theme.dart';
 import '../core/generation.dart';
 import '../core/image_io.dart';
+import '../core/import_images.dart';
 import '../secure_store.dart';
 import '../widgets/device_mockup.dart';
 import '../widgets/studio_widgets.dart';
@@ -22,6 +23,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
   int _cols = 3;
   int _preset = 0;
   bool _savingAll = false;
+  bool _importing = false;
 
   @override
   void initState() {
@@ -39,6 +41,28 @@ class _GalleryScreenState extends State<GalleryScreen> {
         _preset = preset;
       });
     } catch (_) {}
+  }
+
+  /// Brings images generated outside the app - for example in the Dola page
+  /// itself - into this run's gallery. Imported images are ordinary results
+  /// from here on: export presets, metadata, ZIP and upload all apply.
+  Future<void> _import() async {
+    if (_importing) return;
+    setState(() => _importing = true);
+    try {
+      final out = await ImportedImages.pick();
+      if (!mounted) return;
+      if (out.images.isNotEmpty) widget.gallery.addAll(out.images);
+      if (out.isEmpty) return;
+      if (out.failures.isEmpty) {
+        _snack('Imported ${out.images.length} image(s).');
+      } else {
+        _snack('Imported ${out.images.length}, skipped '
+            '${out.failures.length}: ${out.failures.first}');
+      }
+    } finally {
+      if (mounted) setState(() => _importing = false);
+    }
   }
 
   void _snack(String msg) {
@@ -157,6 +181,18 @@ class _GalleryScreenState extends State<GalleryScreen> {
             tooltip: 'More columns',
             icon: const Icon(Icons.zoom_out, size: 19),
             onPressed: _cols >= 6 ? null : () => _setCols(_cols + 1),
+          ),
+          const SizedBox(width: Skin.s2),
+          OutlinedButton.icon(
+            onPressed: _importing ? null : _import,
+            icon: _importing
+                ? const SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.file_open_outlined, size: 16),
+            label: const Text('Import'),
           ),
           const SizedBox(width: Skin.s2),
           OutlinedButton.icon(

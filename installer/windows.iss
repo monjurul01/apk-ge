@@ -1,8 +1,8 @@
 ; ============================================================================
-;  AI Image Studio - Windows installer (Inno Setup 6)
+;  Meta Hawaladar Image Generator - Windows installer (Inno Setup 6)
 ;
 ;  Produces a real Windows setup program
-;  (AIImageStudio-windows-x64-setup-v<version>.exe): Program Files install,
+;  (MetaHawaladarImageGenerator-windows-x64-setup-v<version>.exe): Program Files install,
 ;  Start-menu + Desktop shortcut, "Apps & features" entry with uninstaller,
 ;  in-place upgrades, optional per-user install without admin rights.
 ;
@@ -27,16 +27,16 @@
   #define MyOutputDir "..\build\installer"
 #endif
 #ifndef MyOutputBaseFilename
-  #define MyOutputBaseFilename "AIImageStudio-windows-x64-setup-v" + MyAppVersion
+  #define MyOutputBaseFilename "MetaHawaladarImageGenerator-windows-x64-setup-v" + MyAppVersion
 #endif
 
-#define MyAppName        "AI Image Studio"
-#define MyAppTagline     "AI Image Generator"
-#define MyAppPublisher   "AI Image Studio"
+#define MyAppName        "Meta Hawaladar Image Generator"
+#define MyAppTagline     "AI image generation for Windows"
+#define MyAppPublisher   "Meta Hawaladar"
 #ifndef MyAppExeName
-  #define MyAppExeName "AIImageStudio.exe"
+  #define MyAppExeName "MetaHawaladarImageGenerator.exe"
 #endif
-#define MyAppId          "{3F2A1B4C-5D6E-4F70-8A9B-0C1D2E3F4A5B}"
+#define MyAppId          "{7B41D9E2-8C35-4A6D-9F12-3E5A7C0B48D6}"
 
 [Setup]
 AppId={{#MyAppId}

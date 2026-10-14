@@ -313,7 +313,7 @@ Map<String, dynamic> buildSetRecord({
     'status': 'queued',
     'prompt': prompt,
     'imageModel': imageModel,
-    'source': 'ai-image-studio-flutter',
+    'source': 'meta-hawaladar-image-generator',
     'createdAt': now,
   };
   if (!single) {

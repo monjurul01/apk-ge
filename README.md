@@ -1,4 +1,4 @@
-# AI Image Studio
+# Meta Hawaladar Image Generator
 
 Text-to-image generator for **Windows** and **Android**, built with Flutter.
 
@@ -15,12 +15,26 @@ Text-to-image generator for **Windows** and **Android**, built with Flutter.
 - **Batch** - paste one prompt per line and run the queue sequentially, with
   a cooldown between jobs so a consumer account is less likely to be
   throttled.
+- **Dola tab** - the site in an embedded browser, signed in with the session
+  saved from the login screen. You generate in the page yourself and save
+  with its own download button; **Import** then pulls those files into the
+  gallery. Imported images are ordinary results, so export presets, AI
+  metadata, ZIP and upload all apply to them unchanged.
 - **Gallery** - everything generated this run, with adjustable grid density,
   bulk save, and a phone-mockup preview (wallpaper / lock / home / chat /
   call) for checking a wallpaper in situ.
 - **Local export** - resizing and cropping run on-device through the `image`
   package. Presets cover the original pixels, 1620x2880 and 2000x2000.
   Exports work offline and no longer depend on a delivery URL staying alive.
+- **AI metadata** - a saved Gemini Web cookie session writes titles, tags,
+  categories and descriptions for finished images. Metadata is authoring
+  only; it is never used to generate pixels.
+- **ZIP export** - bundles `images/`, `prompts/` and a `metadata.json`
+  manifest into one archive (Save-As on desktop, share sheet on mobile).
+- **Upload** - finished images go to your own R2 bucket through your worker,
+  and one queue record per image is pushed to the matching account's
+  Firebase database. Accounts, queue path, default target and the spread
+  pool are configured in Settings; `spread` rotates accounts round-robin.
 - **Secure session storage** - credentials live in OS secure storage
   (Keychain / Keystore / Windows Credential Manager).
 
@@ -84,6 +98,7 @@ lib/
     generator_factory.dart    the only place a concrete backend is named
     export_presets.dart       on-device resize / crop / re-encode
     image_io.dart             save, share, filename rules
+    import_images.dart        bring outside images into the pipeline
 
   dola/
     dola_session.dart         cookie model, parsing, validation
@@ -96,7 +111,9 @@ lib/
     studio_screen.dart        single-prompt composer
     batch_screen.dart         sequential prompt queue
     gallery_screen.dart       run gallery + device preview
-    settings_screen.dart      session, export, selectors
+    settings_screen.dart      session, export, Gemini, distribution
+    dola_login_screen.dart    in-app browser login + cookie harvesting
+    dola_tab_screen.dart      the site in a tab + Import
 
   widgets/
     studio_widgets.dart       Panel, SectionLabel, NoticeBar, EmptyState
@@ -104,9 +121,32 @@ lib/
 
   gemini_api.dart             prompt/metadata authoring (not generation)
   gemini_web.dart             cookie session for Gemini Web
-  distribute.dart             upload targets for generated sets
+  distribute.dart             R2 upload + Firebase queue records
   zip_export.dart             zip bundling
 ```
+
+## Branding
+
+| What | Value |
+| --- | --- |
+| App name | Meta Hawaladar Image Generator |
+| Dart package | `meta_hawaladar_image_generator` |
+| Android applicationId | `com.metahawaladar.imagegenerator` |
+| Android namespace | `com.metahawaladar.meta_hawaladar_image_generator` (from `flutter create`) |
+| Windows exe | `MetaHawaladarImageGenerator.exe` |
+| Installer AppId | `{7B41D9E2-8C35-4A6D-9F12-3E5A7C0B48D6}` (new - a renamed product must not upgrade the old one in place) |
+| Save folder | `Documents/Meta Hawaladar Image Generator` |
+
+Icons are generated from `assets/icon/app_icon.svg` (the gold MH swoosh mark)
+and committed, so no icon tool runs at build time:
+
+- `app_icon.png` - 1024px raster master, also the in-app wordmark
+- `app_icon.ico` - Windows exe + Inno Setup wizard (16-256px)
+- `android/mipmap-*/ic_launcher.png` - legacy launcher icons
+- `android/mipmap-*/ic_launcher_foreground.png` - adaptive foreground, mark
+  inset to ~68% so launcher masks never clip it
+- `android/values/mh_colors.xml` - adaptive background `#FBC903`, the same
+  gold as the mark's field, so the inset foreground shows no seam
 
 ## Design
 
@@ -133,11 +173,27 @@ CI builds Windows and Android artifacts; see `.github/workflows/build.yml`.
 
 ## Outstanding work
 
-`lib/dola/dola_client.dart` - the WebView driver that ties the session,
-selectors and driver script together - is **not in this tree yet**. Until it
-is added and returned from `createDolaGenerator()`, the app builds and runs
-but every generation fails with "No image backend is connected yet", which
-Settings states plainly.
+`lib/dola/dola_client.dart` - a driver that would submit prompts to Dola from
+the app - is **not in this tree, and is not planned**. Dola's page applies a
+per-request anti-abuse signature (`webmssdk`) to its chat endpoints, so a
+saved cookie alone cannot authorise a generation request from outside the
+page; producing that signature would mean deliberately defeating an
+anti-abuse control. `createDolaGenerator()` therefore returns an
+unconfigured generator, and Studio/Batch report "No image backend is
+connected yet" rather than pretending otherwise.
+
+Two honest ways forward, both of which the current seam already supports:
+
+1. **Dola tab + Import** (shipped) - generate in the page, save, import. No
+   automation, no forged request, and the rest of the pipeline is unchanged.
+2. **A real API** - Replicate, fal.ai or Gemini. Implement `ImageGenerator`
+   and return it from `createDolaGenerator()`; nothing else in the app has to
+   change, which is the point of that one-file seam.
+
+`lib/models.dart` keeps the prompt-set vocabulary (arcs, variants) but is
+not imported by any screen. Sets needed seed locking and an image-to-image
+edit endpoint, which the current backend does not expose; the file is kept
+so sets can return if such a backend is wired in.
 
 Everything else the driver needs is in place: session storage and cookie
 parsing, the overridable selector config, the in-page driver script, the

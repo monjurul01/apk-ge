@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adaptive-icon background. Matches the gold field of the MH mark, so
+         the scaled foreground sits on a continuous colour with no seam. -->
+    <color name="mh_ic_background">#FBC903</color>
+</resources>

@@ -1,7 +1,7 @@
-name: ai_image_studio
-description: AI Image Studio - Dola-powered text-to-image generator for Windows and Android.
+name: meta_hawaladar_image_generator
+description: Meta Hawaladar Image Generator - text-to-image studio for Windows and Android.
 publish_to: "none"
-version: 2.0.0+4
+version: 2.1.0+5
 
 environment:
   sdk: ">=3.6.0 <4.0.0"
@@ -38,9 +38,10 @@ flutter:
     - assets/icon/app_icon.png
 
 # App icons are pre-generated and committed (no icon tool needed):
-#   assets/icon/app_icon.png              -> source artwork (MH monogram)
+#   assets/icon/app_icon.svg              -> source artwork (MH swoosh, vector)
+#   assets/icon/app_icon.png              -> 1024px raster master
 #   assets/icon/app_icon.ico              -> Windows exe + installer
 #   assets/icon/android/mipmap-*/...png   -> Android launcher (mdpi-xxxhdpi)
 #   assets/icon/android/mipmap-anydpi-v26 -> Android adaptive icon (API 26+)
-#   assets/icon/android/values            -> adaptive icon background color
+#   assets/icon/android/values/mh_colors  -> adaptive icon background colour
 # CI copies them into the generated windows/ and android/ runners before building.

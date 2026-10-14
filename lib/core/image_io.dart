@@ -15,10 +15,10 @@ import 'generation.dart';
 class ImageIo {
   ImageIo._();
 
-  /// `AI Image Studio` inside the platform documents directory.
+  /// `Meta Hawaladar Image Generator` inside the platform documents directory.
   static Future<Directory> saveDir() async {
     final base = await getApplicationDocumentsDirectory();
-    final dir = Directory('${base.path}${Platform.pathSeparator}AI Image Studio');
+    final dir = Directory('${base.path}${Platform.pathSeparator}Meta Hawaladar Image Generator');
     if (!await dir.exists()) await dir.create(recursive: true);
     return dir;
   }

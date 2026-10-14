@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_theme.dart';
 import '../core/generation.dart';
 import 'batch_screen.dart';
+import 'dola_tab_screen.dart';
 import 'gallery_screen.dart';
 import 'settings_screen.dart';
 import 'studio_screen.dart';
@@ -54,6 +55,11 @@ class _AppShellState extends State<AppShell> {
   final _gallery = SessionGallery();
   int _index = 0;
 
+  /// The Dola tab loads a real page, so it is not built until it is first
+  /// opened. Otherwise every launch would fetch the site whether or not the
+  /// user went anywhere near that tab.
+  bool _dolaOpened = false;
+
   @override
   void dispose() {
     _gallery.dispose();
@@ -63,17 +69,29 @@ class _AppShellState extends State<AppShell> {
   static const _destinations = [
     (icon: Icons.auto_awesome_outlined, selected: Icons.auto_awesome, label: 'Studio'),
     (icon: Icons.layers_outlined, selected: Icons.layers, label: 'Batch'),
+    (icon: Icons.public_outlined, selected: Icons.public, label: 'Dola'),
     (icon: Icons.grid_view_outlined, selected: Icons.grid_view, label: 'Gallery'),
     (icon: Icons.tune_outlined, selected: Icons.tune, label: 'Settings'),
   ];
 
+  /// An IndexedStack rather than a switch: the Dola tab hosts a live page,
+  /// and rebuilding the subtree on every tab change would reload it and lose
+  /// whatever conversation was in progress. The other tabs keep their state
+  /// for free, which is also what the previous switch already implied by
+  /// holding the gallery above them.
   Widget _page() {
-    return switch (_index) {
-      0 => StudioScreen(gallery: _gallery),
-      1 => BatchScreen(gallery: _gallery),
-      2 => GalleryScreen(gallery: _gallery),
-      _ => const SettingsScreen(),
-    };
+    return IndexedStack(
+      index: _index,
+      children: [
+        StudioScreen(gallery: _gallery),
+        BatchScreen(gallery: _gallery),
+        _dolaOpened
+            ? DolaTabScreen(gallery: _gallery)
+            : const SizedBox.shrink(),
+        GalleryScreen(gallery: _gallery),
+        const SettingsScreen(),
+      ],
+    );
   }
 
   @override
@@ -101,7 +119,7 @@ class _AppShellState extends State<AppShell> {
               ),
               child: NavigationBar(
                 selectedIndex: _index,
-                onDestinationSelected: (i) => setState(() => _index = i),
+                onDestinationSelected: _select,
                 destinations: [
                   for (final d in _destinations)
                     NavigationDestination(
@@ -115,28 +133,35 @@ class _AppShellState extends State<AppShell> {
     );
   }
 
+  void _select(int i) {
+    setState(() {
+      _index = i;
+      if (i == 2) _dolaOpened = true;
+    });
+  }
+
   Widget _rail() {
     return SizedBox(
       width: 88,
       child: Column(
         children: [
           const SizedBox(height: Skin.s5),
-          // Wordmark: a single amber square, the only branding in the app.
-          Container(
-            width: 26,
-            height: 26,
-            decoration: BoxDecoration(
-              color: Skin.accent,
-              borderRadius: BorderRadius.circular(Skin.rSm),
+          // Wordmark: the MH mark, the only branding in the app.
+          ClipRRect(
+            borderRadius: BorderRadius.circular(Skin.rSm),
+            child: Image.asset(
+              'assets/icon/app_icon.png',
+              width: 30,
+              height: 30,
+              filterQuality: FilterQuality.medium,
             ),
-            child: const Icon(Icons.circle, size: 9, color: Skin.onAccent),
           ),
           const SizedBox(height: Skin.s5),
           Expanded(
             child: NavigationRail(
               backgroundColor: Skin.canvas,
               selectedIndex: _index,
-              onDestinationSelected: (i) => setState(() => _index = i),
+              onDestinationSelected: _select,
               labelType: NavigationRailLabelType.all,
               destinations: [
                 for (final d in _destinations)
